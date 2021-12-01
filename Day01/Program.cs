@@ -26,9 +26,8 @@ namespace Day01
                 previousDepth = depth;
             }
 
-            Console.WriteLine($"Part 1: {count}");
-
             sw.Stop();
+            Console.WriteLine($"Part 1: {count}");
             System.Diagnostics.Debug.WriteLine($"Part 1: {sw.Elapsed}");
         }
 
@@ -44,9 +43,8 @@ namespace Day01
                 if (depths[i + 3] > depths[i]) count++;
             }
 
-            Console.WriteLine($"Part 2: {count}");
-
             sw.Stop();
+            Console.WriteLine($"Part 2: {count}");
             System.Diagnostics.Debug.WriteLine($"Part 2: {sw.Elapsed}");
         }
     }
