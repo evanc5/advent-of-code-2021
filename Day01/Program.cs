@@ -17,9 +17,9 @@ namespace Day01
             var input = File.ReadAllLines(@".\input.txt");
             var sw = System.Diagnostics.Stopwatch.StartNew();
 
-            var count = -1;
-            var previousDepth = int.MinValue;
+            var count = 0;
             var depths = input.Select(depth => int.Parse(depth));
+            var previousDepth = depths.First();
             foreach (var depth in depths)
             {
                 if (depth > previousDepth) count++;
@@ -37,7 +37,14 @@ namespace Day01
             var input = File.ReadAllLines(@".\input.txt");
             var sw = System.Diagnostics.Stopwatch.StartNew();
 
+            var count = 0;
+            var depths = input.Select(depth => int.Parse(depth)).ToArray();
+            for (int i = 0; i + 3 < depths.Length; i++)
+            {
+                if (depths[i + 3] > depths[i]) count++;
+            }
 
+            Console.WriteLine($"Part 2: {count}");
 
             sw.Stop();
             System.Diagnostics.Debug.WriteLine($"Part 2: {sw.Elapsed}");
