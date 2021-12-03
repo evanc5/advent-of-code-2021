@@ -69,15 +69,31 @@ namespace Day03
                 {
                     if (line[bit] == '1') highCount++;
                 }
-                if (highCount >= input.Length / 2)
+                if (highCount >= 500)
                 {
-                    if (o2List.Length > 1) o2List = o2List.Where(line => line[bit] == '1').ToArray();
-                    if (co2List.Length > 1) co2List = co2List.Where(line => line[bit] == '0').ToArray();
+                    if (o2List.Length > 1)
+                    {
+                        var tmpo2 = o2List.Where(line => line[bit] == '1').ToArray();
+                        if (tmpo2.Any()) o2List = tmpo2;
+                    }
+                    if (co2List.Length > 1)
+                    {
+                        var tmpco2 = co2List.Where(line => line[bit] == '0').ToArray();
+                        if (tmpco2.Any()) co2List = tmpco2;
+                    }
                 }
                 else
                 {
-                    if (o2List.Length > 1) o2List = o2List.Where(line => line[bit] == '0').ToArray();
-                    if (co2List.Length > 1) co2List = co2List.Where(line => line[bit] == '1').ToArray();
+                    if (o2List.Length > 1)
+                    {
+                        var tmpo2 = o2List.Where(line => line[bit] == '0').ToArray();
+                        if (tmpo2.Any()) o2List = tmpo2;
+                    }
+                    if (co2List.Length > 1)
+                    {
+                        var tmpco2 = co2List.Where(line => line[bit] == '1').ToArray();
+                        if (tmpco2.Any()) co2List = tmpco2;
+                    }
                 }
             }
 
