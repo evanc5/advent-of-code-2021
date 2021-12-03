@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -54,20 +54,13 @@ namespace Day03
 
         static void Part2()
         {
-            //var input = File.ReadAllLines(@".\input.txt");
-            var rawInput =
-                @"00100,11110,10110,10111,10101,01111,00111,11100,10000,11001,00010,01010";
-            var input = rawInput.Split(',');
-
+            var input = File.ReadAllLines(@".\input.txt");
             var sw = System.Diagnostics.Stopwatch.StartNew();
-
-            var lineLength = input[0].Length;
-            var bitCounts = new int[lineLength];
 
             var o2List = input.ToArray();
             var co2List = input.ToArray();
-            Console.WriteLine($"{input.Length}, {lineLength}");
-            for (int bit = 0; bit < lineLength; bit++)
+
+            for (int bit = 0; bit < input[0].Length; bit++)
             {
                 if (o2List.Length > 1)
                 {
@@ -77,7 +70,7 @@ namespace Day03
                     {
                         if (line[bit] == '1') o2Count++;
                     }
-                    if (o2Count >= o2List.Length / 2)
+                    if (o2Count >= o2List.Length / 2.0)
                     {
                         o2List = o2List.Where(line => line[bit] == '1').ToArray();
                     }
@@ -95,7 +88,7 @@ namespace Day03
                     {
                         if (line[bit] == '1') co2Count++;
                     }
-                    if (co2Count >= co2List.Length / 2)
+                    if (co2Count >= co2List.Length / 2.0)
                     {
                         co2List = co2List.Where(line => line[bit] == '0').ToArray();
                     }
@@ -108,8 +101,6 @@ namespace Day03
 
             var o2Rating = Convert.ToInt32(o2List.First(), 2);
             var co2Rating = Convert.ToInt32(co2List.First(), 2);
-
-            Console.WriteLine($"o2: {o2List.First()}, co2: {co2List.First()}");
 
             sw.Stop();
             Console.WriteLine($"Part 2: {o2Rating * co2Rating}");
