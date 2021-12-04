@@ -99,9 +99,6 @@ namespace Day04
 
         public bool HasBingo()
         {
-            var diagonals = CalledBoard.GetDiagonals();
-            if (diagonals.Any(diagonal => diagonal.All(a => a == true))) return true;
-
             for (int i = 0; i < 5; i++)
             {
                 var row = CalledBoard.GetRow(i);
