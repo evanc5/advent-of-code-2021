@@ -18,8 +18,35 @@ namespace Day04
             var input = File.ReadAllLines(@".\input.txt");
             var sw = System.Diagnostics.Stopwatch.StartNew();
 
-            var bingoCalls = input[0].Split(',');
+            var bingoCalls = input[0].Split(',').Select(int.Parse);
+            var boards = new List<BingoBoard>();
+            var currentLines = new string[5];
+            var idx = 0;
+            foreach (var line in input.Skip(1))
+            {
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    idx = 0;
+                    currentLines = new string[5];
+                }
+                else
+                {
+                    currentLines[idx] = line;
+                    idx++;
+                }
+            }
 
+            foreach (var call in bingoCalls)
+            {
+                foreach (var board in boards)
+                {
+                    var bingo = board.Call(call);
+                    if (bingo)
+                    {
+                        System.Diagnostics.Debugger.Break();
+                    }
+                }
+            }
 
             sw.Stop();
             System.Diagnostics.Debug.WriteLine($"Part 1: {sw.Elapsed}");
