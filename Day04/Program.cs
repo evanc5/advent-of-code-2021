@@ -22,12 +22,11 @@ namespace Day04
             var boards = new List<BingoBoard>();
             var currentLines = new string[5];
             var idx = 0;
-            var boardId = 0;
             foreach (var line in input.Skip(2))
             {
                 if (string.IsNullOrWhiteSpace(line))
                 {
-                    boards.Add(new BingoBoard(currentLines, boardId++));
+                    boards.Add(new BingoBoard(currentLines));
                     idx = 0;
                     currentLines = new string[5];
                 }
@@ -60,17 +59,15 @@ namespace Day04
             var input = File.ReadAllLines(@".\input.txt");
             var sw = System.Diagnostics.Stopwatch.StartNew();
 
-
             var bingoCalls = input[0].Split(',').Select(int.Parse);
             var boards = new List<BingoBoard>();
             var currentLines = new string[5];
             var idx = 0;
-            var boardId = 0;
             foreach (var line in input.Skip(2))
             {
                 if (string.IsNullOrWhiteSpace(line))
                 {
-                    boards.Add(new BingoBoard(currentLines, boardId++));
+                    boards.Add(new BingoBoard(currentLines));
                     idx = 0;
                     currentLines = new string[5];
                 }
@@ -80,22 +77,20 @@ namespace Day04
                     idx++;
                 }
             }
-
+            var lastBoard = new Tuple<BingoBoard, int>(null, 0);
             foreach (var call in bingoCalls)
             {
                 foreach (var board in boards.Where(board => !board.Won))
                 {
                     var bingo = board.Call(call);
-                }
-                if (boards.Count(board => !board.Won) == 1)
-                {
-                    var score = boards.First(board => !board.Won).Score(call);
-                    sw.Stop();
-                    Console.WriteLine($"Part 2: {score}");
-                    System.Diagnostics.Debug.WriteLine($"Part 2: {sw.Elapsed}");
-                    return;
+                    if (bingo) lastBoard = new(board, call);
                 }
             }
+            var score = lastBoard.Item1.Score(lastBoard.Item2);
+            sw.Stop();
+            Console.WriteLine($"Part 2: {score}");
+            System.Diagnostics.Debug.WriteLine($"Part 2: {sw.Elapsed}");
+            return;
         }
     }
 }

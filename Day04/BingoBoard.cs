@@ -9,17 +9,15 @@ namespace Day04
     {
         public int[,] Board { get; private set; }
         public bool[,] CalledBoard { get; private set; }
-        public int BoardID { get; private set; }
         public bool Won { get; private set; }
 
-        public BingoBoard(string[] input, int boardId)
+        public BingoBoard(string[] input)
         {
             Board = new int[5, 5];
             CalledBoard = new bool[5, 5];
-            BoardID = boardId;
             for (int i = 0; i < 5; i++)
             {
-                var split = input[i].Split(' ').Where(n => !string.IsNullOrWhiteSpace(n)).Select(n => int.Parse(n)).ToArray();
+                var split = input[i].Split(' ').Where(n => !string.IsNullOrWhiteSpace(n)).Select(int.Parse).ToArray();
                 for (int j = 0; j < 5; j++)
                 {
                     Board[i, j] = split[j];
