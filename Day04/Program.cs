@@ -22,10 +22,12 @@ namespace Day04
             var boards = new List<BingoBoard>();
             var currentLines = new string[5];
             var idx = 0;
-            foreach (var line in input.Skip(1))
+            var boardId = 0;
+            foreach (var line in input.Skip(2))
             {
                 if (string.IsNullOrWhiteSpace(line))
                 {
+                    boards.Add(new BingoBoard(currentLines, boardId++));
                     idx = 0;
                     currentLines = new string[5];
                 }
@@ -43,13 +45,12 @@ namespace Day04
                     var bingo = board.Call(call);
                     if (bingo)
                     {
-                        System.Diagnostics.Debugger.Break();
+                        sw.Stop();
+                        Console.WriteLine($"Part 1 ID: {board.BoardID}");
+                        System.Diagnostics.Debug.WriteLine($"Part 1: {sw.Elapsed}");
                     }
                 }
             }
-
-            sw.Stop();
-            System.Diagnostics.Debug.WriteLine($"Part 1: {sw.Elapsed}");
         }
 
         static void Part2()
@@ -68,9 +69,13 @@ namespace Day04
         public int[,] Board { get; private set; }
         public bool[,] CalledBoard { get; private set; }
 
-        public BingoBoard(string[] input)
+        public int BoardID { get; private set; }
+
+        public BingoBoard(string[] input, int boardId)
         {
             Board = new int[5, 5];
+            CalledBoard = new bool[5, 5];
+            BoardID = boardId;
             for (int i = 0; i < 5; i++)
             {
                 var split = input[i].Split(' ').Where(n => !string.IsNullOrWhiteSpace(n)).Select(n => int.Parse(n)).ToArray();
@@ -93,7 +98,8 @@ namespace Day04
 
         public bool HasBingo()
         {
-
+            //TODO: implement
+            return false;
         }
 
         private Tuple<int, int>[] IndeciesOf(int n)
