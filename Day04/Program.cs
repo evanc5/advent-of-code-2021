@@ -45,8 +45,9 @@ namespace Day04
                     var bingo = board.Call(call);
                     if (bingo)
                     {
+                        var score = board.Score(call);
                         sw.Stop();
-                        Console.WriteLine($"Part 1 ID: {board.BoardID}");
+                        Console.WriteLine($"Part 1: {score}");
                         System.Diagnostics.Debug.WriteLine($"Part 1: {sw.Elapsed}");
                         return;
                     }
@@ -107,6 +108,19 @@ namespace Day04
             }
 
             return false;
+        }
+
+        public int Score(int call)
+        {
+            var sum = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    if (!CalledBoard[i, j]) sum += Board[i, j];
+                }
+            }
+            return sum * call;
         }
 
         private Tuple<int, int>[] IndeciesOf(int n)
