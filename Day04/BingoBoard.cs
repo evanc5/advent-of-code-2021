@@ -9,8 +9,8 @@ namespace Day04
     {
         public int[,] Board { get; private set; }
         public bool[,] CalledBoard { get; private set; }
-
         public int BoardID { get; private set; }
+        public bool Won { get; private set; }
 
         public BingoBoard(string[] input, int boardId)
         {
@@ -43,7 +43,11 @@ namespace Day04
             {
                 var row = CalledBoard.GetRow(i);
                 var column = CalledBoard.GetColumn(i);
-                if (row.All(a => a == true) || column.All(a => a == true)) return true;
+                if (row.All(a => a == true) || column.All(a => a == true))
+                {
+                    Won = true;
+                    return true;
+                }
             }
 
             return false;

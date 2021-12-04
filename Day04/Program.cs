@@ -61,8 +61,41 @@ namespace Day04
             var sw = System.Diagnostics.Stopwatch.StartNew();
 
 
-            sw.Stop();
-            System.Diagnostics.Debug.WriteLine($"Part 2: {sw.Elapsed}");
+            var bingoCalls = input[0].Split(',').Select(int.Parse);
+            var boards = new List<BingoBoard>();
+            var currentLines = new string[5];
+            var idx = 0;
+            var boardId = 0;
+            foreach (var line in input.Skip(2))
+            {
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    boards.Add(new BingoBoard(currentLines, boardId++));
+                    idx = 0;
+                    currentLines = new string[5];
+                }
+                else
+                {
+                    currentLines[idx] = line;
+                    idx++;
+                }
+            }
+
+            foreach (var call in bingoCalls)
+            {
+                foreach (var board in boards.Where(board => !board.Won))
+                {
+                    var bingo = board.Call(call);
+                }
+                if (boards.Count(board => !board.Won) == 1)
+                {
+                    var score = boards.First(board => !board.Won).Score(call);
+                    sw.Stop();
+                    Console.WriteLine($"Part 2: {score}");
+                    System.Diagnostics.Debug.WriteLine($"Part 2: {sw.Elapsed}");
+                    return;
+                }
+            }
         }
     }
 }
