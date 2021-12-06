@@ -47,6 +47,25 @@ namespace Day06
             var input = File.ReadAllText(@".\input.txt");
             var sw = System.Diagnostics.Stopwatch.StartNew();
 
+            var fishList = input.Split(',').Select(int.Parse).ToList();
+
+            for (int day = 0; day < 256; day++)
+            {
+                var count = fishList.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    if (fishList[i] == 0)
+                    {
+                        fishList.Add(8);
+                        fishList[i] = 6;
+                    }
+                    else
+                    {
+                        fishList[i]--;
+                    }
+                }
+            }
+
 
             sw.Stop();
             System.Diagnostics.Debug.WriteLine($"Part 2: {sw.Elapsed}");
