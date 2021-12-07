@@ -19,7 +19,7 @@ namespace Day07
             var sw = System.Diagnostics.Stopwatch.StartNew();
 
             var positions = input.Select(int.Parse);
-            var median = positions.ToList().GetMedian();
+            var median = positions.GetMedian();
             var fuel = 0;
             foreach (var pos in positions)
             {
@@ -42,12 +42,13 @@ namespace Day07
         }
     }
 
-    public static class ListExtensions
+    public static class CollectionExtensions
     {
-        public static int GetMedian(this List<int> collection)
+        public static T GetMedian<T>(this IEnumerable<T> collection)
         {
-            collection.Sort();
-            return collection[collection.Count / 2];
+            var list = collection.ToList();
+            list.Sort();
+            return list[list.Count / 2];
         }
     }
 }
