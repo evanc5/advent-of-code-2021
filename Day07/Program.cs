@@ -15,16 +15,15 @@ namespace Day07
 
         static void Part1()
         {
-            var rawInput = @"16,1,2,0,4,2,7,1,2,14";
-            var input = rawInput.Split(',');//File.ReadAllText(@".\input.txt").Split(',');
+            var input = File.ReadAllText(@".\input.txt").Split(',');
             var sw = System.Diagnostics.Stopwatch.StartNew();
 
             var positions = input.Select(int.Parse);
-            var average = (int)Math.Round(positions.Average(), 0);
+            var median = positions.ToList().GetMedian();
             var fuel = 0;
             foreach (var pos in positions)
             {
-                fuel += Math.Abs(pos - average);
+                fuel += Math.Abs(pos - median);
             }
 
             sw.Stop();
@@ -40,6 +39,15 @@ namespace Day07
 
             sw.Stop();
             System.Diagnostics.Debug.WriteLine($"Part 2: {sw.Elapsed}");
+        }
+    }
+
+    public static class ListExtensions
+    {
+        public static int GetMedian(this List<int> collection)
+        {
+            collection.Sort();
+            return collection[collection.Count / 2];
         }
     }
 }
