@@ -48,6 +48,7 @@ namespace Day07
                 {
                     var difference = Math.Abs(targetPos - startingPos);
                     currentFuel += Sigma(difference);
+                    if (currentFuel > minFuel) break;
                 }
                 minFuel = Math.Min(minFuel, currentFuel);
             }
