@@ -47,7 +47,7 @@ namespace Day07
                 foreach (var startingPos in positions)
                 {
                     var difference = Math.Abs(targetPos - startingPos);
-                    currentFuel += Sigma(difference);
+                    currentFuel += TriangleNumber(difference);
                     if (currentFuel > minFuel) break;
                 }
                 minFuel = Math.Min(minFuel, currentFuel);
@@ -58,14 +58,9 @@ namespace Day07
             System.Diagnostics.Debug.WriteLine($"Part 2: {sw.Elapsed}");
         }
 
-        static int Sigma(int n)
+        public static int TriangleNumber(int n)
         {
-            var sum = 0;
-            for (int i = n; i > 0; i--)
-            {
-                sum += i;
-            }
-            return sum;
+            return (n * (n + 1)) / 2;
         }
     }
 
