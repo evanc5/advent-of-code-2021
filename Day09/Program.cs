@@ -69,24 +69,7 @@ namespace Day07
             System.Diagnostics.Debug.WriteLine($"Part 2: {sw.Elapsed}");
         }
 
-        static bool IsLowPoint(int[,] matrix, int x, int y)
-        {
-            var up = y - 1;
-            var down = y + 1;
-            var left = x - 1;
-            var right = x + 1;
-
-            if (up >= 0 && matrix[x, up] <= matrix[x, y] ||
-                down < matrix.GetLength(1) && matrix[x, down] <= matrix[x, y] ||
-                left >= 0 && matrix[left, y] <= matrix[x, y] ||
-                right < matrix.GetLength(0) && matrix[right, y] <= matrix[x, y])
-            {
-                return false;
-            }
-            return true;
-        }
-
-        static T[,] BuildMatrix<T>(IList<T[]> arrays)
+        public static T[,] BuildMatrix<T>(IList<T[]> arrays)
         {
             var width = arrays[0].Length;
             T[,] matrix = new T[arrays.Count, width];
@@ -103,6 +86,23 @@ namespace Day07
                 }
             }
             return matrix;
+        }
+
+        public static bool IsLowPoint(int[,] matrix, int x, int y)
+        {
+            var up = y - 1;
+            var down = y + 1;
+            var left = x - 1;
+            var right = x + 1;
+
+            if (up >= 0 && matrix[x, up] <= matrix[x, y] ||
+                down < matrix.GetLength(1) && matrix[x, down] <= matrix[x, y] ||
+                left >= 0 && matrix[left, y] <= matrix[x, y] ||
+                right < matrix.GetLength(0) && matrix[right, y] <= matrix[x, y])
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
