@@ -62,8 +62,9 @@ namespace Day07
                 }
                 lines.Add(currentLine.ToArray());
             }
-            var basin = new Basin(lines);
-            var sizes = basin.GetSizes();
+
+            var basinFinder = new BasinFinder(lines);
+            var sizes = basinFinder.GetLargest(3);
 
             var total = 1;
             foreach (var size in sizes)
@@ -113,12 +114,12 @@ namespace Day07
         }
     }
 
-    public class Basin
+    public class BasinFinder
     {
         public Point[,] Points { get; }
-        public int Size { get; private set; }
+        private int currentSize;
 
-        public Basin(List<int[]> arrays)
+        public BasinFinder(List<int[]> arrays)
         {
             var width = arrays[0].Length;
             Points = new Point[arrays.Count, width];
@@ -132,32 +133,23 @@ namespace Day07
             }
         }
 
-        public int[] GetSizes()
+        public int[] GetLargest(int n)
         {
-            var sizes = new int[3];
+            var sizes = new int[n];
 
             for (int y = 0; y < Points.GetLength(1); y++)
             {
                 for (int x = 0; x < Points.GetLength(0); x++)
                 {
                     if (Points[x, y].Filled) continue;
-                    Size = 0;
+                    currentSize = 0;
                     FloodFill(x, y);
 
-                    if (Size > sizes[0])
+                    if (currentSize > sizes.Min())
                     {
-                        sizes[2] = sizes[1];
-                        sizes[1] = sizes[0];
-                        sizes[0] = Size;
-                    }
-                    else if (Size > sizes[1])
-                    {
-                        sizes[2] = sizes[1];
-                        sizes[1] = Size;
-                    }
-                    else if (Size > sizes[2])
-                    {
-                        sizes[2] = Size;
+                        var newSizes = sizes.ToList();
+                        newSizes.Add(currentSize);
+                        sizes = newSizes.OrderByDescending(i => i).Take(n).ToArray();
                     }
                 }
             }
@@ -176,7 +168,7 @@ namespace Day07
             }
 
             Points[x, y].Filled = true;
-            Size++;
+            currentSize++;
 
             FloodFill(x + 1, y);
             FloodFill(x - 1, y);
@@ -185,7 +177,7 @@ namespace Day07
         }
     }
 
-    public class Point
+    public struct Point
     {
         public readonly int x;
         public readonly int y;
