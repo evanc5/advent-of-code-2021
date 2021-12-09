@@ -31,9 +31,9 @@ namespace Day07
             var matrix = BuildMatrix(lines);
 
             var totalRisk = 0;
-            for (int x = 0; x < matrix.GetLength(0); x++)
+            for (int y = 0; y < matrix.GetLength(1); y++)
             {
-                for (int y = 0; y < matrix.GetLength(1); y++)
+                for (int x = 0; x < matrix.GetLength(0); x++)
                 {
                     if (IsLowPoint(matrix, x, y))
                     {
@@ -62,10 +62,17 @@ namespace Day07
                 }
                 lines.Add(currentLine.ToArray());
             }
-            var matrix = BuildMatrix(lines);
+            var basin = new Basin(lines);
+            var sizes = basin.GetSizes();
+
+            var total = 1;
+            foreach (var size in sizes)
+            {
+                total *= size;
+            }
 
             sw.Stop();
-            Console.WriteLine($"Part 2: ");
+            Console.WriteLine($"Part 2: {total}");
             System.Diagnostics.Debug.WriteLine($"Part 2: {sw.Elapsed}");
         }
 
@@ -103,6 +110,96 @@ namespace Day07
                 return false;
             }
             return true;
+        }
+    }
+
+    public class Basin
+    {
+        public Point[,] Points { get; }
+        public int Size { get; private set; }
+
+        public Basin(List<int[]> arrays)
+        {
+            var width = arrays[0].Length;
+            Points = new Point[arrays.Count, width];
+            for (int y = 0; y < arrays.Count; y++)
+            {
+                var array = arrays[y];
+                for (int x = 0; x < width; x++)
+                {
+                    Points[x, y] = new Point(x, y, array[x]);
+                }
+            }
+        }
+
+        public int[] GetSizes()
+        {
+            var sizes = new int[3];
+
+            for (int y = 0; y < Points.GetLength(1); y++)
+            {
+                for (int x = 0; x < Points.GetLength(0); x++)
+                {
+                    if (Points[x, y].Filled) continue;
+                    Size = 0;
+                    FloodFill(x, y);
+
+                    if (Size > sizes[0])
+                    {
+                        sizes[2] = sizes[1];
+                        sizes[1] = sizes[0];
+                        sizes[0] = Size;
+                    }
+                    else if (Size > sizes[1])
+                    {
+                        sizes[2] = sizes[1];
+                        sizes[1] = Size;
+                    }
+                    else if (Size > sizes[2])
+                    {
+                        sizes[2] = Size;
+                    }
+                }
+            }
+
+            return sizes;
+        }
+
+        private void FloodFill(int x, int y)
+        {
+            if (x >= Points.GetLength(0) ||
+                y >= Points.GetLength(1) ||
+                x < 0 || y < 0 ||
+                Points[x, y].Filled)
+            {
+                return;
+            }
+
+            Points[x, y].Filled = true;
+            Size++;
+
+            FloodFill(x + 1, y);
+            FloodFill(x - 1, y);
+            FloodFill(x, y + 1);
+            FloodFill(x, y - 1);
+        }
+    }
+
+    public class Point
+    {
+        public readonly int x;
+        public readonly int y;
+
+        public readonly int height;
+
+        public bool Filled { get; set; }
+
+        public Point(int x, int y, int height)
+        {
+            this.x = x;
+            this.y = y;
+            this.height = height;
+            Filled = height == 9;
         }
     }
 }
