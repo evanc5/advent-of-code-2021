@@ -117,6 +117,39 @@
             "stopAtEntry": false
         },
         {
+            "name": "Day 11",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build11",
+            "program": "${workspaceFolder}/Day11/bin/Debug/net5.0/Day11.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Day11",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Day 12",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build12",
+            "program": "${workspaceFolder}/Day12/bin/Debug/net5.0/Day12.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Day12",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Day 13",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build13",
+            "program": "${workspaceFolder}/Day13/bin/Debug/net5.0/Day13.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Day13",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach"
