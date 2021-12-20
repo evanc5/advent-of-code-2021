@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MatrixExtensions;
 
-namespace Day04
+namespace Bingo
 {
     public class BingoBoard
     {
