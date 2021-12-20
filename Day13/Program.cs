@@ -169,7 +169,7 @@ namespace Day13
                 for (int x = 0; x < matrix.GetLength(0); x++)
                 {
                     if (matrix[x, y]) Console.Write("#");
-                    else Console.Write(" ");
+                    else Console.Write(".");
                 }
                 Console.Write("\n");
             }
