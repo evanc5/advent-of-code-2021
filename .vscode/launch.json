@@ -150,6 +150,17 @@
             "stopAtEntry": false
         },
         {
+            "name": "Day 20",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build20",
+            "program": "${workspaceFolder}/Day20/bin/Debug/net6.0/Day20.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Day20",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach"
