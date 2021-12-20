@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-
-Part1();
+﻿Part1();
 Part2();
 
 static void Part1()
