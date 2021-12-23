@@ -164,20 +164,7 @@ public class BasinFinder
     }
 }
 
-public struct Point
+public record struct Point(int x, int y, int height)
 {
-    public readonly int x;
-    public readonly int y;
-
-    public readonly int height;
-
-    public bool Filled { get; set; }
-
-    public Point(int x, int y, int height)
-    {
-        this.x = x;
-        this.y = y;
-        this.height = height;
-        Filled = height == 9;
-    }
+    public bool Filled { get; set; } = height == 9;
 }
